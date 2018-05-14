@@ -19,7 +19,6 @@ contract clientOfdAppBridge {
     DappBridgeLocator_I internal dAppBridgeLocator;
     dAppBridge_I internal dAppBridge; 
     uint256 internal current_gas = 0;
-    uint256 internal dApp_gas_cost = 0;
 
     modifier dAppBridgeClient {
         if(address(dAppBridgeLocator) == 0){
@@ -35,9 +34,6 @@ contract clientOfdAppBridge {
             current_gas = dAppBridge.getMinGas();
         }
 
-        if(dApp_gas_cost < 1) {
-            dApp_gas_cost = dAppBridge.getDappGasCost();
-        }
 
         _;
     }
