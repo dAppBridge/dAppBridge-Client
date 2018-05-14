@@ -57,7 +57,7 @@ contract clientOfdAppBridge {
             dAppBridge_location = dAppBridgeLocator.currentLocation();
         }
         
-        emit(msg.sender, dAppBridge_location);
+        emit dAppBridge_addrTest(msg.sender, dAppBridge_location);
         require(msg.sender == dAppBridge_location);
         
         _;
