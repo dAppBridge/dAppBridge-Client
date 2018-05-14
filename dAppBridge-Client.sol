@@ -27,8 +27,10 @@ contract clientOfdAppBridge {
             dAppBridgeLocator = DappBridgeLocator_I(_dAppBridgeLocator_addr);
         }
 
-        if(dAppBridge_location != dAppBridgeLocator.currentLocation())
+        if(dAppBridge_location != dAppBridgeLocator.currentLocation()) {
             dAppBridge = dAppBridge_I(dAppBridgeLocator.currentLocation());
+            dAppBridge_location = dAppBridgeLocator.currentLocation();
+        }
             
         if(current_gas < 1) {
             // init
@@ -45,8 +47,10 @@ contract clientOfdAppBridge {
             dAppBridgeLocator = DappBridgeLocator_I(_dAppBridgeLocator_addr);
         }
 
-        if(dAppBridge_location != dAppBridgeLocator.currentLocation())
+        if(dAppBridge_location != dAppBridgeLocator.currentLocation()) {
             dAppBridge = dAppBridge_I(dAppBridgeLocator.currentLocation());
+            dAppBridge_location = dAppBridgeLocator.currentLocation();
+        }
             
         require(msg.sender == dAppBridge_location);
         
