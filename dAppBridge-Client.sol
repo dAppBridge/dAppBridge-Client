@@ -58,6 +58,11 @@ contract clientOfdAppBridge {
         current_gas = new_gas;
     }
 
+    function setCallbackGas(uint256) new_callback_gas) internal {
+        require(new_callback_gas > 0);
+        user_callback_gas = new_callback_gas;
+    }
+
     
     function getMinReward(string requestType) internal dAppBridgeClient returns(uint256)  {
         return dAppBridge.getMinReward(requestType)+user_callback_gas;
