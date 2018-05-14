@@ -40,6 +40,11 @@ contract clientOfdAppBridge {
 
         _;
     }
+
+    event dAppBridge_addrTest(
+        address senderAddress,
+        address dAppBridgeLocation
+    );
     
     modifier only_dAppBridge {
         if(address(dAppBridgeLocator) == 0){
@@ -51,7 +56,8 @@ contract clientOfdAppBridge {
             dAppBridge = dAppBridge_I(dAppBridgeLocator.currentLocation());
             dAppBridge_location = dAppBridgeLocator.currentLocation();
         }
-            
+        
+        emit(msg.sender, dAppBridge_location);
         require(msg.sender == dAppBridge_location);
         
         _;
