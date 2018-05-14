@@ -14,8 +14,8 @@ contract DappBridgeLocator_I {
 }
 
 contract clientOfdAppBridge {
-    address internal _dAppBridgeLocator_addr = 0x4032bFffc5b3C4e6957c695bf6D3557D468d84b4;
-    address internal dAppBridge_location;
+    address internal _dAppBridgeLocator_addr = 0x470460C5A05EBE1cF7106Fc55Cda378eb9D58691;
+    address internal dAppBridge_addr;
     DappBridgeLocator_I internal dAppBridgeLocator;
     dAppBridge_I internal dAppBridge; 
     uint256 internal current_gas = 0;
@@ -27,16 +27,15 @@ contract clientOfdAppBridge {
             dAppBridgeLocator = DappBridgeLocator_I(_dAppBridgeLocator_addr);
         }
 
-        if(dAppBridge_location != dAppBridgeLocator.currentLocation()) {
+        if(dAppBridge_addr != dAppBridgeLocator.currentLocation()) {
             dAppBridge = dAppBridge_I(dAppBridgeLocator.currentLocation());
-            dAppBridge_location = dAppBridgeLocator.currentLocation();
+            dAppBridge_addr = dAppBridgeLocator.currentLocation();
         }
             
         if(current_gas < 1) {
             // init
             current_gas = dAppBridge.getMinGas();
         }
-
 
         _;
     }
@@ -52,13 +51,13 @@ contract clientOfdAppBridge {
             dAppBridgeLocator = DappBridgeLocator_I(_dAppBridgeLocator_addr);
         }
 
-        if(dAppBridge_location != dAppBridgeLocator.currentLocation()) {
+        if(dAppBridge_addr != dAppBridgeLocator.currentLocation()) {
             dAppBridge = dAppBridge_I(dAppBridgeLocator.currentLocation());
-            dAppBridge_location = dAppBridgeLocator.currentLocation();
+            dAppBridge_addr = dAppBridgeLocator.currentLocation();
         }
         
-        emit dAppBridge_addrTest(msg.sender, dAppBridge_location);
-        require(msg.sender == dAppBridge_location);
+        emit dAppBridge_addrTest(msg.sender, dAppBridge_addr);
+        require(msg.sender == dAppBridge_addr);
         
         _;
     }
