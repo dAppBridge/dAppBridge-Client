@@ -19,6 +19,7 @@ contract clientOfdAppBridge {
     DappBridgeLocator_I internal dAppBridgeLocator;
     dAppBridge_I internal dAppBridge; 
     uint256 internal current_gas = 0;
+    uint256 internal user_callback_gas = 0;
 
     modifier dAppBridgeClient {
         if(address(dAppBridgeLocator) == 0){
@@ -56,24 +57,25 @@ contract clientOfdAppBridge {
         require(new_gas > 0);
         current_gas = new_gas;
     }
+
     
     function getMinReward(string requestType) internal dAppBridgeClient returns(uint256)  {
-        return dAppBridge.getMinReward(requestType);
+        return dAppBridge.getMinReward(requestType)+user_callback_gas;
     }
 
     function setTimeout(string callback_method, uint32 timeout) internal dAppBridgeClient {
-        return dAppBridge.setTimeout.value(dAppBridge.getMinReward('setTimeout')).gas(current_gas)(callback_method, timeout);
+        return dAppBridge.setTimeout.value(getMinReward('setTimeout')).gas(current_gas)(callback_method, timeout);
     }
     function setURLTimeout(string callback_method, uint32 timeout, string external_url, string external_params) internal dAppBridgeClient {
-        return dAppBridge.setURLTimeout.value(dAppBridge.getMinReward('setURLTimeout')).gas(current_gas)(callback_method, timeout, external_url, external_params);
+        return dAppBridge.setURLTimeout.value(getMinReward('setURLTimeout')).gas(current_gas)(callback_method, timeout, external_url, external_params);
     }
     function callURL(string callback_method, string external_url, string external_params) internal dAppBridgeClient {
-        return dAppBridge.callURL.value(dAppBridge.getMinReward('callURL')).gas(current_gas)(callback_method, external_url, external_params);
+        return dAppBridge.callURL.value(getMinReward('callURL')).gas(current_gas)(callback_method, external_url, external_params);
     }
     function randomNumber(string callback_method, int32 min_val, int32 max_val, uint32 timeout) internal dAppBridgeClient {
-        return dAppBridge.randomNumber.value(dAppBridge.getMinReward('randomNumber')).gas(current_gas)(callback_method, min_val, max_val, timeout);
+        return dAppBridge.randomNumber.value(getMinReward('randomNumber')).gas(current_gas)(callback_method, min_val, max_val, timeout);
     }
     function randomString(string callback_method, uint8 number_of_bytes, uint32 timeout) internal dAppBridgeClient {
-        return dAppBridge.randomString.value(dAppBridge.getMinReward('randomString')).gas(current_gas)(callback_method, number_of_bytes, timeout);
+        return dAppBridge.randomString.value(getMinReward('randomString')).gas(current_gas)(callback_method, number_of_bytes, timeout);
     }
 }
