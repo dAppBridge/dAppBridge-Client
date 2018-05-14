@@ -62,18 +62,18 @@ contract clientOfdAppBridge {
     }
 
     function setTimeout(string callback_method, uint32 timeout) internal dAppBridgeClient {
-        return dAppBridge.setTimeout.value(dAppBridge.getMinReward('setTimeout')+dAppBridge.getDappBridgeGasCost(false)).gas(current_gas)(callback_method, timeout);
+        return dAppBridge.setTimeout.value(dAppBridge.getMinReward('setTimeout')).gas(current_gas)(callback_method, timeout);
     }
     function setURLTimeout(string callback_method, uint32 timeout, string external_url, string external_params) internal dAppBridgeClient {
-        return dAppBridge.setURLTimeout.value(dAppBridge.getMinReward('setURLTimeout')+dAppBridge.getDappBridgeGasCost(true)).gas(current_gas)(callback_method, timeout, external_url, external_params);
+        return dAppBridge.setURLTimeout.value(dAppBridge.getMinReward('setURLTimeout')).gas(current_gas)(callback_method, timeout, external_url, external_params);
     }
     function callURL(string callback_method, string external_url, string external_params) internal dAppBridgeClient {
-        return dAppBridge.callURL.value(dAppBridge.getMinReward('callURL')+dAppBridge.getDappBridgeGasCost(true)).gas(current_gas)(callback_method, external_url, external_params);
+        return dAppBridge.callURL.value(dAppBridge.getMinReward('callURL')).gas(current_gas)(callback_method, external_url, external_params);
     }
     function randomNumber(string callback_method, int32 min_val, int32 max_val, uint32 timeout) internal dAppBridgeClient {
-        return dAppBridge.randomNumber.value(dAppBridge.getMinReward('randomNumber')+dAppBridge.getDappBridgeGasCost(false)).gas(current_gas)(callback_method, min_val, max_val, timeout);
+        return dAppBridge.randomNumber.value(dAppBridge.getMinReward('randomNumber')).gas(current_gas)(callback_method, min_val, max_val, timeout);
     }
     function randomString(string callback_method, uint8 number_of_bytes, uint32 timeout) internal dAppBridgeClient {
-        return dAppBridge.randomString.value(dAppBridge.getMinReward('randomString')+dAppBridge.getDappBridgeGasCost(false)).gas(current_gas)(callback_method, number_of_bytes, timeout);
+        return dAppBridge.randomString.value(dAppBridge.getMinReward('randomString')).gas(current_gas)(callback_method, number_of_bytes, timeout);
     }
 }
