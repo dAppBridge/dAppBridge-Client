@@ -13,17 +13,17 @@ contract DappBridgeLocator_I {
     function currentLocation() public returns(address);
 }
 contract clientOfdAppBridge {
-    address internal _dAppBridgeLocator_Rinkeby_addr = 0x470460C5A05EBE1cF7106Fc55Cda378eb9D58691;
+    address internal _dAppBridgeLocator_Rinkeby_addr = 0x00;
     address internal _dAppBridgeLocator_Ropsten_addr = 0x00;
-    address internal _dAppBridgeLocator_Kovan_addr = 0x00;
+    address internal _dAppBridgeLocator_Kovan_addr = 0xF96772C64965C3a2185DC9DC84F24134740Ff715;
     address internal _dAppBridgeLocator_Prod_addr = 0x00;
     DappBridgeLocator_I internal dAppBridgeLocator;
     dAppBridge_I internal dAppBridge; 
     uint256 internal current_gas = 0;
     uint256 internal user_callback_gas = 0;
     function initBridge() internal {
-        if(address(dAppBridgeLocator) != _dAppBridgeLocator_Rinkeby_addr){ 
-            dAppBridgeLocator = DappBridgeLocator_I(_dAppBridgeLocator_Rinkeby_addr);
+        if(address(dAppBridgeLocator) != _dAppBridgeLocator_Kovan_addr){ 
+            dAppBridgeLocator = DappBridgeLocator_I(_dAppBridgeLocator_Kovan_addr);
         }   
         if(address(dAppBridge) != dAppBridgeLocator.currentLocation()){
             dAppBridge = dAppBridge_I(dAppBridgeLocator.currentLocation());
