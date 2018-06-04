@@ -132,20 +132,20 @@ contract clientOfdAppBridge {
     mapping(string => bytes32) internal callback_content_verifications_int;
 
     function setTimeoutEvent(string callback_method, uint32 timeout) internal dAppBridgeClient {
-        uint256 _reward = dAppBridge.getMinReward('setTimeout')+user_callback_gas;
+        uint256 _reward = dAppBridge.getMinReward('setTimeoutEvent')+user_callback_gas;
         dAppBridge.setTimeoutEvent.value(_reward).gas(current_gas)(callback_method, timeout);
         //emit newEventResponse(_new_request_key);
         //callback_content_verifications[_new_request_key] = 0x00;
     }
     function setTimeoutURL(string callback_method, uint32 timeout, string external_url, string external_params) internal dAppBridgeClient {
-        uint256 _reward = dAppBridge.getMinReward('setURLTimeout')+user_callback_gas;
+        uint256 _reward = dAppBridge.getMinReward('setTimeoutURL')+user_callback_gas;
         dAppBridge.setTimeoutURL.value(_reward).gas(current_gas)(callback_method, timeout, external_url, external_params, "");
         //emit newEventResponse(_new_request_key);
         //callback_content_verifications[_new_request_key] = 0x00;
     }
     function setURLTimeout(string callback_method, uint32 timeout, string external_url, string external_params, string json_extract_element) internal dAppBridgeClient {
-        uint256 _reward = dAppBridge.getMinReward('setURLTimeout')+user_callback_gas;
-        dAppBridge.setURLTimeout.value(_reward).gas(current_gas)(callback_method, timeout, external_url, external_params, json_extract_element);
+        uint256 _reward = dAppBridge.getMinReward('setTimeoutURL')+user_callback_gas;
+        dAppBridge.setTimeoutURL.value(_reward).gas(current_gas)(callback_method, timeout, external_url, external_params, json_extract_element);
         //emit newEventResponse(_new_request_key);
         //callback_content_verifications[_new_request_key] = 0x00;
     }
