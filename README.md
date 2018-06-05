@@ -158,7 +158,7 @@ contract DappBridgeTester is clientOfdAppBridge {
 
 }
 ```
-See the full example of this: https://github/dAppBridge/dAppBridge-client/exmaples/setTimeout.sol
+See the full example of this: https://github.com/dAppBridge/dAppBridge-Client/blob/master/examples/setTimeout.sol
 
 
 ### callURL
@@ -212,7 +212,7 @@ contract DappBridgeTester is clientOfdAppBridge {
 
 }
 ```
-See the full example of this: https://github/dAppBridge/dAppBridge-client/exmaples/callurl.sol
+See the full example of this: https://github.com/dAppBridge/dAppBridge-Client/blob/master/examples/callurl.sol
 
 ### setURLTimeout
 
@@ -268,7 +268,7 @@ contract DappBridgeTester is clientOfdAppBridge {
 
 }
 ```
-See the full example of this: https://github/dAppBridge/dAppBridge-client/exmaples/setURLTimeout.sol
+See the full example of this: https://github.com/dAppBridge/dAppBridge-Client/blob/master/examples/setURLTimeout.sol
 
 ### randomNumber
 
@@ -321,7 +321,7 @@ contract DappBridgeTester is clientOfdAppBridge {
 
 }
 ```
-See the full example of this: https://github/dAppBridge/dAppBridge-client/exmaples/randomNumber.sol
+See the full example of this: https://github.com/dAppBridge/dAppBridge-Client/blob/master/examples/randomNumber.sol
 
 ### randomString
 
@@ -373,7 +373,7 @@ contract DappBridgeTester is clientOfdAppBridge {
 
 }
 ```
-See the full example of this: https://github/dAppBridge/dAppBridge-client/exmaples/randomString.sol
+See the full example of this: https://github.com/dAppBridge/dAppBridge-Client/blob/master/examples/randomString.sol
 
 
 ## Pricing
