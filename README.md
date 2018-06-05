@@ -22,7 +22,7 @@ import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Rinkeby.sol";
 ```
 **Production**
 ```
-import "github.com/dAppBridge/dAppBridge-Client/dAppBridge.sol";
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client.sol";
 ```
 
 Your contract method should be **is clientOfdAppBridge**, e.g.
