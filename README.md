@@ -390,7 +390,7 @@ When you make a request to any of the above methods all of the above is sent fro
 
 ### Part 1
 
-Currently set at 100,000 wei.  Remember any Gas unused on a request is refunded.  
+Currently set at 200,000 wei.  Remember any Gas unused on a request is refunded.  
 
 If you wish to change the amount of gas used on your part of the request use the method:
 
