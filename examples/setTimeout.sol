@@ -23,17 +23,18 @@ contract dAppBridgeTester_setTimeout is clientOfdAppBridge {
     }
     //
     
-    function callback() external payable only_dAppBridge{
+    // The key returned here can be matched up to the original response below
+    function callback(bytes32 key) external payable only_dAppBridge{
         // Do somethiing here - your code...
         callback_times++;
 
         // If we want to continue running, call setTimeout again...
-        setTimeout("callback", 240);
+        bytes32 newkey = setTimeout("callback", 240);
     }
     
 
     function startTesting() public {
         if(msg.sender == owner)
-            setTimeout("callback", 0);
+            bytes32 newkey = setTimeout("callback", 0);
     }
 }
