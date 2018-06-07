@@ -23,15 +23,16 @@ contract dAppBridgeTester_setURLTimeout is clientOfdAppBridge {
     }
     //
     
-    function callback(string callbackData) external payable only_dAppBridge {
+    // The key returned here can be matched up to the original response below
+    function callback(bytes32 key, string callbackData) external payable only_dAppBridge {
         usd_btc_rate = callbackData;
-        setURLTimeout("callback", 240, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
+        bytes32 newkey = setURLTimeout("callback", 240, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
     
 
     function startTesting() public {
     	if(msg.sender == owner)
-        	setURLTimeout("callback", 0, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
+        	bytes32 newkey = setURLTimeout("callback", 0, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
 
 
