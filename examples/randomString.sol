@@ -22,14 +22,15 @@ contract DappBridgeTester_randomString is clientOfdAppBridge {
     }
     //
     
-    function receiveRandomString(string callbackData) external payable only_dAppBridge {
+    // The key returned here can be matched up to the original response below
+    function receiveRandomString(bytes32 key, string callbackData) external payable only_dAppBridge {
         random_string = callbackData;
     }
     
 
     function startTesting() public {
     	if(msg.sender == owner)
-        	randomString("receiveRandomString", 100, 0);
+        	bytes32 newkey = randomString("receiveRandomString", 100, 0);
     }
 
 
