@@ -8,7 +8,7 @@
 
 http://dappbridge.com
 
-**dAppBridge** is a service to bridge the gap between solidity smart contracts and the the public Internet.  With a simple call to dAppBridge you can can interface with any public internet API or URL - with secure proof that the data returned back has not been tampered with.  
+**dAppBridge** is a service to bridge the gap between smart contracts and the public Internet.  With a simple call to dAppBridge you can can interface with any public API or URL - with secure proof that the data returned has not been tampered with.  
 
 dAppBridge also provided additional services such as Random Number generation and Cryptographic Random String generation - again with secure proof that the return values have not been tempered with and are as you requested.
 
@@ -446,7 +446,6 @@ Get in touch!  We're here to help, answer questions, hear your suggetions and fe
 dapps@dappbridge.com
 
 https://twitter.com/dAppBridge
-
 
 
 
