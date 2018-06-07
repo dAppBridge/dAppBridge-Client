@@ -443,7 +443,9 @@ The callback infrastructure that makes the requests for your contracts runs on a
 
 Get in touch!  We're here to help, answer questions, hear your suggetions and feedback!
 
-<a mailto:"dapps@dappbridge.com">dapps@dappbridge.com</a>
+dapps@dappbridge.com
+https://twitter.com/dAppBridge
+
 
 
 
