@@ -36,7 +36,7 @@ Add a callback method - this will be where the returned data will be received (E
 
 ```
 	string api_response; 
-   	function callback(string requestKey, string callbackData) external payable verifyProof(requestKey, callbackData) {
+   	function callback(string requestKey, string callbackData) external payable only_dAppBridge {
     	api_response = callbackData;
 	}
 ```
@@ -76,15 +76,14 @@ contract dAppBridgeTester_setURLTimeout is clientOfdAppBridge {
     }
     //
     
-    function callback(string callbackData) external payable only_dAppBridge {
+    function callback(bytes32 key, string callbackData) external payable only_dAppBridge {
         usd_btc_rate = callbackData;
-        setURLTimeout("callback", 240, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
+        bytes32 newkey = setURLTimeout("callback", 240, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
     
-
     function startTesting() public {
         if(msg.sender == owner)
-            setURLTimeout("callback", 0, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
+            bytes32 newkey = setURLTimeout("callback", 0, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
 
 
@@ -98,9 +97,9 @@ We've used a full version of the dAppBridge->setURLTimeout method in the above e
 
 The entry point for the above contract is the method **startTesting**  This makes a call to the **dAppBridge** method **setURLTimeout**  See below for the full guide to this method, but it basically calls an external URL and returns the data (At the set timeout interval) to the callback method specified - function "callback" in this case.
 
-The callback function (**callback**) must confirm to the correct signature (**string,string**) and should be set to **payable**  This is to allow any remaining gas to be refunded to you.  
+The callback function (**callback**) must confirm to the correct signature (**bytes32,string**) and should be set to **payable**  This is to allow any remaining gas to be refunded to you.  They **key** item returned here allows you to match up all the responses with the requests you've made... each time you make a request to any dAppBridge function you will be given a unique key back for that request.  When you receive the callback the same key will be presented back to you.
 
-You will notice the modifier **verifyProof** here too... this is a key element and is what ensures that no malicious actor can send through false data to your callback functions.  Only data that you have requested will be permitted back through... if you have requested data from https://api.coindesk.com/v1/bpi/currentprice.json then you can be sure that the data returned will be from that address and only for your request.  See below for further details on security.
+You will notice the modifier **only_dAppBridge** here too... this is a key element and is what ensures that no malicious actor can send through false data to your callback functions.  Only data that you have requested will be permitted back through... if you have requested data from https://api.coindesk.com/v1/bpi/currentprice.json then you can be sure that the data returned will be from that address and only for your request.  See below for further details on security.
 
 
 
@@ -119,7 +118,7 @@ You will notice the modifier **verifyProof** here too... this is a key element a
 A simple method similar to the JavaScript method setTimeout allowing you to time requests to your Solidity Smart Contracts methods.
 
 
-The signature for a timeout method is a simple empty method, with our unique protection modifier **only_dAppBridge**
+The signature for a timeout method is a simple method with one param (bytes32 key), with our unique protection modifier **only_dAppBridge**
 
 Example:
 
@@ -139,7 +138,7 @@ contract DappBridgeTester is clientOfdAppBridge {
     
     string usd_btc_rate = "";
     
-    function callback() external payable only_dAppBridge {
+    function callback(bytes32 key) external payable only_dAppBridge {
         // Do somethiing here - your code...
 
         // Setup your constructors here
@@ -148,12 +147,12 @@ contract DappBridgeTester is clientOfdAppBridge {
 
         // If we want to continue running, call setTimeout again 
         // (Safe in the knowledge that nobody else can call this function as it is protected with only_dAppBridge!)
-        setTimeout("callback", 240);
+        bytes32 newkey = setTimeout("callback", 240);
     }
     
 
     function startTesting() public {
-        setTimeout("callback", 0);
+        bytes32 newkey = setTimeout("callback", 0);
     }
 
 
@@ -177,7 +176,7 @@ Request an Internet URL or API via GET or POST (POST if external_params provided
 The callback function should have the signature:
 
 ```
-yourmethodname(string) external payable only_dAppBridge
+yourmethodname(bytes32, string) external payable only_dAppBridge
 ```
 
 The callback is set payable to allow dAppBridge to return any unused gas back to you after all processing.  The **only_dAppBridge** modifier is the critical security element which protects your callback function from any malicious actor from calling it with malicious data - and trying to poison your contract.  See below for further details on security.
@@ -201,13 +200,13 @@ contract DappBridgeTester is clientOfdAppBridge {
 
     // Setup your constructors here
     
-    function callback(string callbackData) external payable only_dAppBridge {
+    function callback(bytes32 key, string callbackData) external payable only_dAppBridge {
         usd_btc_rate = callbackData;
     }
     
 
     function startTesting() public {
-        callURL("callback", "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
+        bytes32 newkey = callURL("callback", "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
 
 
@@ -231,7 +230,7 @@ Request an Internet URL or API after a set number of seconds (Setting timeout to
 The callback function should have the signature:
 
 ```
-yourmethodname(string) external payable only_dAppBridge
+yourmethodname(bytes32, string) external payable only_dAppBridge
 ```
 
 The callback is set payable to allow dAppBridge to return any unused gas back to you after all processing.  The **only_dAppBridge** modifier is the critical security element which protects your callback method from any malicious actor from calling it with malicious data - and trying to poison your contract.  See below for further details on security.
@@ -256,14 +255,14 @@ contract DappBridgeTester is clientOfdAppBridge {
 
     // Setup your constructors here
     
-    function callback(string callbackData) external payable only_dAppBridge {
+    function callback(bytes32 key, string callbackData) external payable only_dAppBridge {
         usd_btc_rate = callbackData;
-        setURLTimeout("callback", 240, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
+        bytes32 newkey = setURLTimeout("callback", 240, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
     
 
     function startTesting() public {
-        setURLTimeout("callback", 0, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
+        bytes32 newkey = setURLTimeout("callback", 0, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
 
 
@@ -286,7 +285,7 @@ Requests a random number from dAppBridge.
 The callback function signature should be:
 
 ```
-functionname(int callbackData) external payable only_dAppBridge
+functionname(bytes32 key, int callbackData) external payable only_dAppBridge
 ```
 
 The callback is set payable to allow dAppBridge to return any unused gas back to you after all processing.  The **only_dAppBridge** modifier is the critical security element which protects your callback method from any malicious actor from calling it with malicious data - and trying to poison your contract.  See below for further details on security.
@@ -310,13 +309,13 @@ contract DappBridgeTester is clientOfdAppBridge {
 
     // Setup your constructors here
     
-    function callback(int callbackData) external payable only_dAppBridge {
+    function callback(bytes32 key, int callbackData) external payable only_dAppBridge {
         random_number = callbackData;
     }
     
 
     function startTesting() public {
-        randomNumber("callback", 1, 100, 0);
+        bytes32 newkey = randomNumber("callback", 1, 100, 0);
     }
 
 
@@ -327,7 +326,7 @@ See the full example of this: https://github.com/dAppBridge/dAppBridge-Client/bl
 
 ### randomString
 
-```randomString(string callback_method, uint8 number_of_bytes, uint32 timeout)```
+```randomString(bytes32 key, string callback_method, uint8 number_of_bytes, uint32 timeout)```
 
 * callback_method: The name of your function you want the random string returned to, just the name - no params (E.g. "callback")
 * number_of_bytes: The size in bytes you would like the randomString to be (E.g. 100)
@@ -338,7 +337,7 @@ Requests a random byte string which is cryptographically secure.  Size is set in
 The callback function signature should be:
 
 ```
-functionname(string) external payable only_dAppBridge
+functionname(bytes32, string) external payable only_dAppBridge
 ```
 
 The callback is set payable to allow dAppBridge to return any unused gas back to you after all processing.  The **only_dAppBridge** modifier is the critical security element which protects your callback method from any malicious actor from calling it with malicious data - and trying to poison your contract.  See below for further details on security.
@@ -362,13 +361,13 @@ contract DappBridgeTester is clientOfdAppBridge {
 
     // Setup your constructors here
     
-    function receiveRandomString(string callbackData) external payable only_dAppBridge {
+    function receiveRandomString(bytes32 key, string callbackData) external payable only_dAppBridge {
         random_string = callbackData;
     }
     
 
     function startTesting() public {
-        randomString("receiveRandomString", 100, 0);
+        bytes32 newkey = randomString("receiveRandomString", 100, 0);
     }
 
 
