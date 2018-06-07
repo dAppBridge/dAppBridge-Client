@@ -22,14 +22,15 @@ contract DappBridgeTester_randomNumber is clientOfdAppBridge {
     }
     //
     
-    function callback(int callbackData) external payable only_dAppBridge {
+    // The key returned here can be matched up to the original response below
+    function callback(bytes32 key, int callbackData) external payable only_dAppBridge {
         random_number = callbackData;
     }
     
 
     function startTesting() public {
     	if(msg.sender == owner)
-        	randomNumber("callback", 1, 100, 0);
+        	bytes32 newkey = randomNumber("callback", 1, 100, 0);
     }
 
 
