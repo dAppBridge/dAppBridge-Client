@@ -16,11 +16,11 @@ dAppBridge also provided additional services such as Random Number generation an
 
 ## How it works
 
-Simply add the correct client import to your contract (Depending on whether you are testing on the Rinkeby testnet or ready to go for full production):
+Simply add the correct client import to your contract (Depending on whether you are testing on the Kovan testnet or ready to go for full production):
 
-**Testnet (Rinkeby)**
+**Testnet (Kovan)**
 ```
-import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Rinkeby.sol";
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Kovan.sol";
 ```
 **Production**
 ```
@@ -55,7 +55,7 @@ Or if you wanted this to run on a timer, then a full example contract would look
 ```
 pragma solidity ^0.4.16;
 
-import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Rinkeby.sol";
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Kovan.sol";
 
 //
 // Simple contract which gets the BTC/USD rate from Coindesk every 240 seconds
@@ -78,11 +78,13 @@ contract dAppBridgeTester_setURLTimeout is clientOfdAppBridge {
     }
     //
     
+    // The key returned here can be matched up to the original response below
     function callback(bytes32 key, string callbackData) external payable only_dAppBridge {
         usd_btc_rate = callbackData;
         bytes32 newkey = setURLTimeout("callback", 240, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
     }
     
+
     function startTesting() public {
         if(msg.sender == owner)
             bytes32 newkey = setURLTimeout("callback", 0, "https://api.coindesk.com/v1/bpi/currentprice.json", "", "bpi.USD.rate");
@@ -188,7 +190,7 @@ Example:
 ```
 pragma solidity ^0.4.16;
 
-import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Rinkeby.sol";
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Kovan.sol";
 
 //
 // Simple contract which gets the BTC/USD rate from Coindesk
@@ -242,7 +244,7 @@ Example:
 ```
 pragma solidity ^0.4.16;
 
-import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Rinkeby.sol";
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Kovan.sol";
 
 //
 // Simple contract which gets the BTC/USD rate from Coindesk every 240 seconds
@@ -297,7 +299,7 @@ Example:
 ```
 pragma solidity ^0.4.16;
 
-import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Rinkeby.sol";
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Kovan.sol";
 
 //
 // Simple contract which gets a random number between 1 and 100
@@ -349,7 +351,7 @@ Example:
 ```
 pragma solidity ^0.4.16;
 
-import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Rinkeby.sol";
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Kovan.sol";
 
 //
 // Simple contract which gets a random number between 1 and 100
