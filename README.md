@@ -1,5 +1,7 @@
 # dAppBridge - bringing smart contracts alive
 
+An easy, yet powerful Ethereum Oracle service that makes it easy to bring your smart contract online - providing one line access to Internet API data!
+
 * Connect Smart Contracts to Internet APIs with Secure Proof that returned data is as requested
 * Request data from any public URL, with Proof that the data has not been tampered with
 * setTimeout now available for solidity smart contracts! Have your methods called automatically as set periods
