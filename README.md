@@ -10,9 +10,18 @@ An easy, yet powerful Ethereum Oracle service that makes it easy to bring your s
 
 http://dappbridge.com
 
-**dAppBridge** is a service to bridge the gap between smart contracts and the public Internet.  With a simple call to dAppBridge you can can interface with any public API or URL - with secure proof that the data returned has not been tampered with.  
+**dAppBridge** is a data oracle service bridging the gap between smart contracts and the public Internet.  With a simple call to dAppBridge you can can interface with any public API or URL - with secure proof that the data returned has not been tampered with.  
 
 dAppBridge also provided additional services such as Random Number generation and Cryptographic Random String generation - again with secure proof that the return values have not been tempered with and are as you requested.
+
+## Secure Data Validation & Proof
+
+All data responses are secured with a  proof that the data returned from any API or URL has not been tampered with – to ensure this we use our 3rd party hosted NotaryProxy which is a full audit-able service that allows you to easily confirm each result is correct and valid (See: https://github.com/dAppBridge/NotaryProxy).
+
+For every single response you receive – you can personally inspect the result and validate its proof… to ensure the data you receive into your smart contract is the same data that was returned from the URL or API (See: https://github.com/dAppBridge/NotaryProxy#how-it-works for a full guide).
+
+This keeps the service honest and audit-able – by using the NotaryProxy there is no way the dAppbridge service could alter the result without you being aware!
+
 
 ## How it works
 
@@ -437,6 +446,10 @@ Any gas remaining from Parts 1 and 2 after all processing and callback estimated
 ## Security By Design
 
 **dAppBridge** works by ensuring that any data returned to your smart contract is always confirmed and verified to only return through our secure channel.  By using the secure **only_dAppBridge** modifier on your callback functions, you can be sure that any data (Or timeout callbacks) are only made by the dAppBridge service and not being made by any malicious actors.  This ensure that the data returned has not been tampered with.
+
+All requests made to public URLs or APIs are now passed through the new NotaryProxy service -> This fully audit-able service allows anyone to confirm returned data has not been altered in transit - by the dAppBridge service or any other malicious actor.  You can be sure the data you receive into your dApp is correct and as originally returns from the API endpoint!
+
+See https://github.com/dAppBridge/NotaryProxy for full detail on how the Notary Proxy validates your data.
 
 This secure by design approach ensures that no malicious actor can send through false data to any of your callback functions.  Only true and verified data can be received.
 
