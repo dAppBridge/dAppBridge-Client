@@ -25,11 +25,15 @@ This keeps the service honest and audit-able – by using the NotaryProxy there 
 
 ## How it works
 
-Simply add the correct client import to your contract (Depending on whether you are testing on the Kovan testnet or ready to go for full production):
+Simply add the correct client import to your contract (Depending on whether you are testing on the Kovan or Ropsten testnet, or when you are ready to go for full production):
 
 **Testnet (Kovan)**
 ```
 import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Kovan.sol";
+```
+**Testnet (Ropsten)**
+```
+import "github.com/dAppBridge/dAppBridge-Client/dAppBridge-Client_Ropsten.sol";
 ```
 **Production**
 ```
